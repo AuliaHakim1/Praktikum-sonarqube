@@ -11,7 +11,7 @@ use App\Models\User;
  * AuthController
  *
  * ⚠️  FILE INI MENGANDUNG KERENTANAN YANG DISENGAJA UNTUK TUJUAN PEMBELAJARAN.
- *     JANGAN GUNAKAN KODE INI DI ENVIRONMENT PRODUCTION!
+ *     JANGAN GUNAKAN KODE INI DI ENVIRONMENT PRODUCTION!!!!!
  *
  * Kerentanan yang ada:
  *  1. Hardcoded Credentials (baris ~30) — CWE-798
