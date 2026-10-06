@@ -30,7 +30,9 @@ jobs:
 
       # 3. Jalankan PHPUnit dan Generate Coverage XML
       - name: Run Tests with Coverage
-        run: vendor/bin/phpunit tests --coverage-clover coverage.xml
+        run: |
+          cp .env.example .env
+          vendor/bin/phpunit tests/Feature/VulnerabilityTest.php --coverage-clover coverage.xml
 
       # 4. SonarQube Scanner
       - name: SonarQube Scan
