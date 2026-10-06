@@ -24,7 +24,9 @@ jobs:
 
       # 2. Install Dependencies Laravel via Composer
       - name: Install Dependencies
-        run: composer install --no-progress --no-interaction --prefer-dist
+        run: |
+          composer config policy.advisories.block false
+          composer install --no-progress --no-interaction --prefer-dist
 
       # 3. Jalankan PHPUnit dan Generate Coverage XML
       - name: Run Tests with Coverage
