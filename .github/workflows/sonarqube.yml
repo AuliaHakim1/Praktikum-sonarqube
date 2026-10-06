@@ -32,7 +32,7 @@ jobs:
       - name: Run Tests with Coverage
         run: |
           cp .env.example .env
-          vendor/bin/phpunit tests/Feature/VulnerabilityTest.php --coverage-clover coverage.xml
+          vendor/bin/phpunit --bootstrap vendor/autoload.php tests/Feature/VulnerabilityTest.php --coverage-clover coverage.xml
 
       # 4. SonarQube Scanner
       - name: SonarQube Scan
