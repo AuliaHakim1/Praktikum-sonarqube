@@ -1,8 +1,10 @@
 name: SonarQube Scan
+
 on:
   push:
     branches:
       - main
+
 jobs:
   sonarqube:
     name: SonarQube Scan
@@ -11,13 +13,31 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          
+
+      # 1. Setup PHP dan Ekstensi yang dibutuhkan
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, dom, fileinfo, filter, hash, libxml, pdo, pdo_mysql, session, tokenizer, xml, pcov
+          coverage: pcov
+
+      # 2. Install Dependencies Laravel via Composer
+      - name: Install Dependencies
+        run: composer install --no-progress --no-interaction --prefer-dist
+
+      # 3. Jalankan PHPUnit dan Generate Coverage XML
+      - name: Run Tests with Coverage
+        run: php artisan test --coverage-clover coverage.xml
+
+      # 4. SonarQube Scanner
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v4
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-          
+
+      # 5. Quality Gate Check
       - name: SonarQube Quality Gate check
         uses: SonarSource/sonarqube-quality-gate-action@v1
         timeout-minutes: 5
